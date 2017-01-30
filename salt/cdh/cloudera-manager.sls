@@ -25,6 +25,23 @@ cloudera-manager-install_cloudera_manager:
     - pkgs:
       - cloudera-manager-daemons
       - cloudera-manager-server
+      - mysql-client
+
+cdh-wait_for_mysql_script_copy:
+  file.managed:
+    - name: /tmp/wait-for-mysql.sh
+    - source: salt://cdh/templates/wait-for-mysql.sh.tpl
+    - mode: 755
+    - template: jinja
+    - defaults:
+        mysql_root_password: {{ mysql_root_password }}
+        cmdb_host: {{ cmdb_host }}
+
+cdh-wait_for_my_sql_script_run:
+  cmd.script:
+    - name: wait-for-mysql
+    - source: /tmp/wait-for-mysql.sh
+    - cwd: /
 
 cloudera-manager-create_ext_db:
   cmd.run:
