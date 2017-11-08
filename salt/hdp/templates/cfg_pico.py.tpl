@@ -173,7 +173,8 @@ BLUEPRINT = r'''{
         {
             "zookeeper-env" : {
                 "properties" : {
-                    "zk_log_dir" : "/var/log/pnda/zookeeper"
+                    "zk_log_dir" : "/var/log/pnda/zookeeper",
+                    "zk_server_heapsize" : "2048"
                 }
             }
         },
